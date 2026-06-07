@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Build freestanding hello_kern.elf from lik sources using lic.
+# Li-native freestanding kernel serial smoke via lic smoke-kernel (QEMU COM1 @ 0x3F8).
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -14,7 +14,7 @@ if [[ -z "${LIC_ROOT}" ]]; then
   done
 fi
 [[ -n "${LIC_ROOT}" && -d "${LIC_ROOT}" ]] || {
-  echo "build-hello-kern: LIC_ROOT not found (clone lic as ../lic or set LIC_ROOT=)" >&2
+  echo "smoke-hello-kern: LIC_ROOT not found (clone lic as ../lic or set LIC_ROOT=)" >&2
   exit 1
 }
 
@@ -34,26 +34,26 @@ if [[ -z "${LIC}" ]]; then
   LIC="$(command -v lic || true)"
 fi
 [[ -n "${LIC}" && -x "${LIC}" ]] || {
-  echo "build-hello-kern: lic not found (build compiler in lic or set LIC=)" >&2
+  echo "smoke-hello-kern: lic not found (build compiler in lic or set LIC=)" >&2
   exit 1
 }
 
-OUT="${LIOS_KERNEL_ELF:-}"
-if [[ -z "${OUT}" ]]; then
-  if [[ -d "${ROOT}/../build" ]]; then
-    OUT="${ROOT}/../build/hello_kern.elf"
+ELF="${LIOS_KERNEL_ELF:-}"
+if [[ $# -gt 0 ]]; then
+  ELF="$1"
+  shift
+fi
+if [[ -z "${ELF}" ]]; then
+  if [[ -f "${ROOT}/../build/hello_kern.elf" ]]; then
+    ELF="${ROOT}/../build/hello_kern.elf"
   else
-    OUT="${ROOT}/build/hello_kern.elf"
+    ELF="${ROOT}/build/hello_kern.elf"
   fi
 fi
-mkdir -p "$(dirname "${OUT}")"
+[[ -f "${ELF}" ]] || { echo "smoke-hello-kern: missing ${ELF}" >&2; exit 1; }
 
-SRC="${ROOT}/src/hello_kern/hello_kern.li"
-[[ -f "${SRC}" ]] || { echo "build-hello-kern: missing ${SRC}" >&2; exit 1; }
+TIMEOUT="${LIOS_KERNEL_SMOKE_TIMEOUT:-10}"
 
-echo "build-hello-kern: lik=${ROOT} lic=${LIC} out=${OUT}"
+echo "smoke-hello-kern: lic=${LIC} elf=${ELF} timeout=${TIMEOUT}s"
 export LIK_ROOT="${ROOT}"
-export LI_KERNEL_LINK_SCRIPT="${ROOT}/arch/i686/link.ld"
-"${LIC}" build --target i686-unknown-none --allow-open-vc --no-lean-verify \
-  -o "${OUT}" "${SRC}"
-echo "build-hello-kern: ok → ${OUT}"
+exec "${LIC}" smoke-kernel "${ELF}" --timeout "${TIMEOUT}" "$@"

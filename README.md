@@ -13,7 +13,7 @@ Li-native operating system kernel sources for LiOS.
 ```bash
 export LIC_ROOT=/path/to/lic
 bash scripts/build-hello-kern.sh
-python3 scripts/hello-kern-serial-smoke.py ../build/hello_kern.elf
+bash scripts/smoke-hello-kern.sh ../build/hello_kern.elf
 ```
 
 Normative ABI: [`docs/kernel-abi.md`](docs/kernel-abi.md)  

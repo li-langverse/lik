@@ -49,7 +49,8 @@ bash scripts/build-hello-kern.sh
 ## Serial smoke
 
 ```bash
-python3 scripts/hello-kern-serial-smoke.py ../build/hello_kern.elf
+bash scripts/smoke-hello-kern.sh ../build/hello_kern.elf
+# or: lic smoke-kernel ../build/hello_kern.elf
 bash /path/to/li-os/scripts/gates/phase-p0-hello-kern-gate.sh
 ```
 
