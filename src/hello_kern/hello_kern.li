@@ -1,0 +1,33 @@
+# LiOS M1 — freestanding hello_kern (i686 COM1 @ 0x3F8, QEMU -serial stdio).
+def _start() -> unit
+  requires true
+  ensures false
+  decreases 0
+=
+  serial_write_hello()
+  idle()
+
+def serial_write_hello() -> unit
+  requires true
+  ensures true
+  decreases 0
+=
+  @hw.outb(1016, 104)
+  @hw.outb(1016, 101)
+  @hw.outb(1016, 108)
+  @hw.outb(1016, 108)
+  @hw.outb(1016, 111)
+  @hw.outb(1016, 95)
+  @hw.outb(1016, 107)
+  @hw.outb(1016, 101)
+  @hw.outb(1016, 114)
+  @hw.outb(1016, 110)
+  @hw.outb(1016, 10)
+
+def idle() -> unit
+  requires true
+  ensures false
+  decreases 0
+=
+  @hw.hlt()
+  idle()
