@@ -52,6 +52,7 @@ SRC="${ROOT}/src/hello_kern/hello_kern.li"
 [[ -f "${SRC}" ]] || { echo "build-hello-kern: missing ${SRC}" >&2; exit 1; }
 
 echo "build-hello-kern: lik=${ROOT} lic=${LIC} out=${OUT}"
+export LI_REPO_ROOT="${LIC_ROOT}"
 export LIK_ROOT="${ROOT}"
 export LI_KERNEL_LINK_SCRIPT="${ROOT}/arch/i686/link.ld"
 "${LIC}" build --target i686-unknown-none --allow-open-vc --no-lean-verify \
