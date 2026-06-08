@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Li-native freestanding kernel serial smoke via lic smoke-kernel (QEMU COM1 @ 0x3F8).
+# Li-native freestanding kernel serial smoke via lic smoke-kernel (in-process i686 @hw traps).
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"

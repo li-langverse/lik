@@ -50,7 +50,7 @@ bash scripts/build-hello-kern.sh
 
 ```bash
 bash scripts/smoke-hello-kern.sh ../build/hello_kern.elf
-# or: lic smoke-kernel ../build/hello_kern.elf
+# or: lic smoke-kernel ../build/hello_kern.elf   # in-process @hw serial trap
 bash /path/to/li-os/scripts/gates/phase-p0-hello-kern-gate.sh
 ```
 
