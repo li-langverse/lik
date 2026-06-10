@@ -14,7 +14,7 @@ SECTIONS
   .multiboot : {
     LONG(0x1BADB002)
     LONG(0)
-    LONG(0xE4514FFE)
+    LONG(0xE4524FFE)
   }
   .text : {
     KEEP(*(.text._start))
