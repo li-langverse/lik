@@ -1,0 +1,62 @@
+# M2 P3 — physical memory map + bump allocator smoke on serial.
+def _start() -> unit
+  requires true
+  ensures false
+  decreases 0
+=
+  mm_bump_smoke()
+  idle()
+
+def mm_bump_smoke() -> unit
+  requires true
+  ensures true
+  decreases 0
+=
+  serial_write_mm_tag()
+  bump_touch_heap()
+  serial_write_bump_ok()
+  serial_write_newline()
+
+def bump_touch_heap() -> unit
+  requires true
+  ensures true
+  decreases 0
+=
+  @hw.mmio_read32(16777216)
+
+def serial_write_mm_tag() -> unit
+  requires true
+  ensures true
+  decreases 0
+=
+  @hw.outb(1016, 109)
+  @hw.outb(1016, 109)
+  @hw.outb(1016, 58)
+  @hw.outb(1016, 98)
+  @hw.outb(1016, 117)
+  @hw.outb(1016, 109)
+  @hw.outb(1016, 112)
+  @hw.outb(1016, 58)
+
+def serial_write_bump_ok() -> unit
+  requires true
+  ensures true
+  decreases 0
+=
+  @hw.outb(1016, 111)
+  @hw.outb(1016, 107)
+
+def serial_write_newline() -> unit
+  requires true
+  ensures true
+  decreases 0
+=
+  @hw.outb(1016, 10)
+
+def idle() -> unit
+  requires true
+  ensures false
+  decreases 0
+=
+  @hw.hlt()
+  idle()

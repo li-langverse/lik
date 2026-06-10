@@ -1,0 +1,21 @@
+# Physical memory region descriptors for M2 bump allocator bring-up.
+def mm_heap_base() -> int
+  requires true
+  ensures true
+  decreases 0
+=
+  16777216
+
+def mm_heap_limit() -> int
+  requires true
+  ensures true
+  decreases 0
+=
+  33554432
+
+def mm_region_size(base: int, limit: int) -> int
+  requires true
+  ensures true
+  decreases 0
+=
+  limit - base

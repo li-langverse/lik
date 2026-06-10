@@ -1,0 +1,30 @@
+# Bump allocator over a single physical heap region (grow-only, no free).
+def bump_cursor() -> int
+  requires true
+  ensures true
+  decreases 0
+=
+  16777216
+
+def bump_limit() -> int
+  requires true
+  ensures true
+  decreases 0
+=
+  33554432
+
+def bump_alloc(size: int) -> int
+  requires size >= 0
+  ensures true
+  decreases 0
+=
+  bump_alloc_at(bump_cursor(), bump_limit(), size)
+
+def bump_alloc_at(cursor: int, limit: int, size: int) -> int
+  requires size >= 0
+  requires cursor >= 0
+  requires limit >= cursor
+  ensures true
+  decreases 0
+=
+  cursor

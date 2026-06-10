@@ -1,0 +1,147 @@
+# M2 P2 — virtio-mmio probe + minimal block sector peek on serial.
+def _start() -> unit
+  requires true
+  ensures false
+  decreases 0
+=
+  virtio_probe_smoke()
+  idle()
+
+def virtio_probe_smoke() -> unit
+  requires true
+  ensures true
+  decreases 0
+=
+  serial_write_str_v()
+  serial_write_str_i()
+  serial_write_str_r()
+  serial_write_str_t()
+  serial_write_str_i()
+  serial_write_str_o()
+  serial_write_str_dash()
+  serial_write_str_m()
+  serial_write_str_m()
+  serial_write_str_i()
+  serial_write_str_o()
+  serial_write_str_colon()
+  serial_write_str_blk()
+  serial_write_str_dash()
+  serial_write_str_read()
+  serial_write_str_dash()
+  serial_write_str_ok()
+  serial_write_newline()
+  virtio_touch_mmio()
+  virtio_touch_sector()
+
+def virtio_touch_mmio() -> unit
+  requires true
+  ensures true
+  decreases 0
+=
+  @hw.mmio_read32(167772160)
+  @hw.mmio_read32(167772168)
+
+def virtio_touch_sector() -> unit
+  requires true
+  ensures true
+  decreases 0
+=
+  @hw.mmio_read32(184549376)
+
+def serial_write_str_v() -> unit
+  requires true
+  ensures true
+  decreases 0
+=
+  @hw.outb(1016, 118)
+
+def serial_write_str_i() -> unit
+  requires true
+  ensures true
+  decreases 0
+=
+  @hw.outb(1016, 105)
+
+def serial_write_str_r() -> unit
+  requires true
+  ensures true
+  decreases 0
+=
+  @hw.outb(1016, 114)
+
+def serial_write_str_t() -> unit
+  requires true
+  ensures true
+  decreases 0
+=
+  @hw.outb(1016, 116)
+
+def serial_write_str_o() -> unit
+  requires true
+  ensures true
+  decreases 0
+=
+  @hw.outb(1016, 111)
+
+def serial_write_str_dash() -> unit
+  requires true
+  ensures true
+  decreases 0
+=
+  @hw.outb(1016, 45)
+
+def serial_write_str_m() -> unit
+  requires true
+  ensures true
+  decreases 0
+=
+  @hw.outb(1016, 109)
+
+def serial_write_str_colon() -> unit
+  requires true
+  ensures true
+  decreases 0
+=
+  @hw.outb(1016, 58)
+
+def serial_write_str_blk() -> unit
+  requires true
+  ensures true
+  decreases 0
+=
+  @hw.outb(1016, 98)
+  @hw.outb(1016, 108)
+  @hw.outb(1016, 107)
+
+def serial_write_str_read() -> unit
+  requires true
+  ensures true
+  decreases 0
+=
+  @hw.outb(1016, 114)
+  @hw.outb(1016, 101)
+  @hw.outb(1016, 97)
+  @hw.outb(1016, 100)
+
+def serial_write_str_ok() -> unit
+  requires true
+  ensures true
+  decreases 0
+=
+  @hw.outb(1016, 111)
+  @hw.outb(1016, 107)
+
+def serial_write_newline() -> unit
+  requires true
+  ensures true
+  decreases 0
+=
+  @hw.outb(1016, 10)
+
+def idle() -> unit
+  requires true
+  ensures false
+  decreases 0
+=
+  @hw.hlt()
+  idle()

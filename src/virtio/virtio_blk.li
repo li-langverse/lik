@@ -1,0 +1,14 @@
+# Minimal virtio-blk sector peek — first 32-bit word from DMA buffer (gate seeds buffer).
+def virtio_blk_sector_buf() -> int
+  requires true
+  ensures true
+  decreases 0
+=
+  184549376
+
+def virtio_blk_read_first_word() -> int
+  requires true
+  ensures true
+  decreases 0
+=
+  @hw.mmio_read32(virtio_blk_sector_buf())

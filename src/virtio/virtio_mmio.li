@@ -1,0 +1,56 @@
+# Virtio-mmio register offsets (QEMU `virt` machine layout).
+def virtio_magic_offset() -> int
+  requires true
+  ensures true
+  decreases 0
+=
+  0
+
+def virtio_version_offset() -> int
+  requires true
+  ensures true
+  decreases 0
+=
+  4
+
+def virtio_device_id_offset() -> int
+  requires true
+  ensures true
+  decreases 0
+=
+  8
+
+def virtio_magic() -> int
+  requires true
+  ensures true
+  decreases 0
+=
+  1953655158
+
+def virtio_device_blk() -> int
+  requires true
+  ensures true
+  decreases 0
+=
+  2
+
+def virtio_mmio_base() -> int
+  requires true
+  ensures true
+  decreases 0
+=
+  167772160
+
+def virtio_probe_magic(base: int) -> int
+  requires true
+  ensures true
+  decreases 0
+=
+  @hw.mmio_read32(base + virtio_magic_offset())
+
+def virtio_probe_device_id(base: int) -> int
+  requires true
+  ensures true
+  decreases 0
+=
+  @hw.mmio_read32(base + virtio_device_id_offset())
